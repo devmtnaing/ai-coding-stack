@@ -6,6 +6,7 @@
   "metadata": {
     "description": "Mingu's curated skills and base context for AI-assisted coding across projects."
   },
+  "allowCrossMarketplaceDependenciesOn": ["context7-marketplace"],
   "plugins": [
     {
       "name": "ai-coding-stack",

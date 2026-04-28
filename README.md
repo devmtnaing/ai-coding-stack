@@ -6,12 +6,20 @@ Nothing here is original — it curates skills and practices from other people's
 
 ## Use it in a project
 
-Install:
+One-time setup per machine — add the upstream marketplaces this stack depends on:
 
 ```
+/plugin marketplace add upstash/context7
 /plugin marketplace add devmtnaing/ai-coding-stack
+```
+
+Per project:
+
+```
 /plugin install ai-coding-stack@ai-coding-stack
 ```
+
+Installs the curated skills plus any bundled plugins declared as dependencies (currently `context7-plugin`, auto-installed).
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/devmtnaing/ai-coding-stack/main/bin/sync-base.sh | bash

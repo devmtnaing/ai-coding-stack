@@ -1,5 +1,8 @@
 {
   "name": "ai-coding-stack",
   "description": "Curated skills for AI-assisted coding (grill-me, tdd, to-prd, to-issues, improve-codebase-architecture).",
-  "skills": ".agents/skills"
+  "skills": ".agents/skills",
+  "dependencies": [
+    { "name": "context7-plugin", "marketplace": "context7-marketplace" }
+  ]
 }
