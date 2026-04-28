@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "files": {
+    "CLAUDE.base.md": {
+      "source": "forrestchang/andrej-karpathy-skills",
+      "sourceType": "github",
+      "path": "CLAUDE.md",
+      "ref": "main",
+      "sha256": "694a2d721e41c385f3db492838c23299826df5ba9809e3b0721aac70021e196a"
+    }
+  }
+}

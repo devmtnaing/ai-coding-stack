@@ -1,0 +1,18 @@
+{
+  "name": "ai-coding-stack",
+  "owner": {
+    "name": "Mingu"
+  },
+  "metadata": {
+    "description": "Mingu's curated skills and base context for AI-assisted coding across projects."
+  },
+  "plugins": [
+    {
+      "name": "ai-coding-stack",
+      "source": "./",
+      "description": "Bundle of skills (grill-me, tdd, to-prd, to-issues, improve-codebase-architecture) for use across all projects.",
+      "category": "workflow",
+      "keywords": ["skills", "tdd", "code-review", "prd"]
+    }
+  ]
+}

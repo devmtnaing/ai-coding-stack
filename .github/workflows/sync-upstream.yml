@@ -1,0 +1,69 @@
+name: Sync upstream
+
+on:
+  schedule:
+    # Mondays at 09:00 UTC. Adjust freely.
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run upstream sync
+        id: sync
+        shell: bash
+        run: |
+          set -euo pipefail
+          bin/sync-upstream.sh 2>&1 | tee /tmp/sync.log
+
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build PR body
+        if: steps.sync.outputs.changed == 'true'
+        shell: bash
+        run: |
+          {
+            echo "Automated upstream sync from \`bin/sync-upstream.sh\`."
+            echo
+            echo "## Diff summary"
+            echo
+            echo '```'
+            git diff --stat
+            echo '```'
+            echo
+            echo "## Sync script output"
+            echo
+            echo '```'
+            cat /tmp/sync.log
+            echo '```'
+            echo
+            echo "Review the diff, then merge to publish updates to downstream projects."
+          } > /tmp/pr-body.md
+
+      - name: Create pull request
+        if: steps.sync.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/sync-upstream
+          title: 'chore: sync upstream'
+          body-path: /tmp/pr-body.md
+          commit-message: 'chore: sync upstream'
+          labels: |
+            automated
+            upstream-sync
+          delete-branch: true
